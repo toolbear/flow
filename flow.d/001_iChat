@@ -1,7 +1,22 @@
+on ApplicationIsRunning(appName)
+    tell application "System Events" to set appNameIsRunning to exists (processes where name is appName)
+    return appNameIsRunning
+end ApplicationIsRunning
+
 on run argv
-   if item 1 of argv is "diminish" then
-      tell application "iChat" to log out
-   else if item 1 of argv is "restore" then
-      tell application "iChat" to log in
-   end if
+    if not ApplicationIsRunning("iChat") then return
+
+    if item 1 of argv is "diminish" then
+        tell application "iChat"
+            set status to away
+            delay 0.1
+            set status message to "Pomodoro in Progress"
+        end tell
+    else if item 1 of argv is "restore" then
+        tell application "iChat"
+            set status to available
+            delay 0.1
+            set status message to ""
+        end tell
+    end if
 end run
