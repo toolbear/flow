@@ -1,0 +1,16 @@
+on run argv
+   if item 1 of argv is "diminish" then
+      tell application "System Events"
+           tell process "Finder"
+                keystroke "2" using control down
+           end tell
+       end tell
+   else if item 1 of argv is "restore" then
+        tell application "System Events"
+             tell process "Finder"
+                  keystroke "1" using control down
+             end tell
+        end tell
+   end if
+end run
+

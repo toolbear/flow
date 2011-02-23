@@ -1,0 +1,7 @@
+on run argv
+   if item 1 of argv is "diminish" then
+      tell application "iChat" to log out
+   else if item 1 of argv is "restore" then
+      tell application "iChat" to log in
+   end if
+end run

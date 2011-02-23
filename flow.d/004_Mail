@@ -1,0 +1,30 @@
+on ApplicationIsRunning(appName)
+    tell application "System Events" to set appNameIsRunning to exists (processes where name is appName)
+    return appNameIsRunning
+end ApplicationIsRunning
+
+
+on run argv
+    if item 1 of argv is "diminish" then
+        if ApplicationIsRunning("Mail") then
+            tell application "Mail" to activate
+            tell application "System Events" to tell process "Mail"
+                set theMenu to menu "Mailbox" of menu bar 1
+                if enabled of menu item "Take All Accounts Offline" of theMenu then
+                    click menu item "Take All Accounts Offline" of theMenu
+                end if
+            end tell
+        end if
+    else if item 1 of argv is "restore" then
+        if ApplicationIsRunning("Mail") then
+--            tell application "Mail" to activate
+--            tell application "System Events" to tell process "Mail"
+--                set theMenu to menu "Mailbox" of menu bar 1
+--                if enabled of menu item "Take All Accounts Online" of theMenu then
+--                    click menu item "Take All Accounts Online" of theMenu
+--                end if
+--            end tell
+            tell application "Mail" to check for new mail
+        end if
+    end if
+end run

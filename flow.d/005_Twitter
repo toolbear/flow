@@ -1,0 +1,7 @@
+on run argv
+   if item 1 of argv is "diminish" then
+      tell application "Twitter" to quit
+   else if item 1 of argv is "restore" then
+      tell application "Twitter" to launch
+   end if
+end run
