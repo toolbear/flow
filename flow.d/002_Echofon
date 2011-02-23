@@ -1,12 +1,8 @@
 on run argv
    if item 1 of argv is "diminish" then
       tell application "Echofon" to quit
-      tell application "System Events"
-           set x to application bindings of spaces preferences of expose preferences
-           set x to {|com.echofon.Echofon|:1} & x
-           set application bindings of spaces preferences of expose preferences to x
-      end tell
    else if item 1 of argv is "restore" then
       tell application "Echofon" to launch
    end if
+   return
 end run

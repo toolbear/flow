@@ -4,24 +4,16 @@ on ApplicationIsRunning(appName)
 end ApplicationIsRunning
 
 on run argv
+    if not ApplicationIsRunning("Skype") then return
+
     if item 1 of argv is "diminish" then
-        if ApplicationIsRunning("Skype") then
-            tell application "Skype"
-                send command "SET USERSTATUS OFFLINE" script name "flow"
-            end tell
-            -- tell application "Finder" to set visible of process "Skype" to false
-            -- tell application "Skype" to quit
-            -- tell application "System Events"
-            --    set x to application bindings of spaces preferences of expose preferences
-            --    set x to {|com.skype.skype|:1} & x
-            --    set application bindings of spaces preferences of expose preferences to x
-            -- end tell
-        end if
+        tell application "Skype"
+            send command "SET USERSTATUS OFFLINE" script name "flow"
+        end tell
     else if item 1 of argv is "restore" then
-        if ApplicationIsRunning("Skype") then
-            tell application "Skype"
-                send command "SET USERSTATUS ONLINE" script name "flow"
-            end tell
-        end if
+        tell application "Skype"
+            send command "SET USERSTATUS ONLINE" script name "flow"
+        end tell
     end if
+    return
 end run

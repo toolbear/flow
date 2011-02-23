@@ -12,5 +12,6 @@ on run argv
              end tell
         end tell
    end if
+   return
 end run
 

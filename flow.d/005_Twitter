@@ -4,4 +4,5 @@ on run argv
    else if item 1 of argv is "restore" then
       tell application "Twitter" to launch
    end if
+   return
 end run
