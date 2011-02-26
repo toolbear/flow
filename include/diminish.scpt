@@ -1,0 +1,1 @@
+property flowAction : "diminish"

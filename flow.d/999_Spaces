@@ -1,0 +1,5 @@
+if flowAction is "diminish" then
+    tell application "System Events"
+        tell process "Finder" to keystroke "2" using control down
+    end tell
+end if

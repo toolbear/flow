@@ -1,21 +1,13 @@
-on ApplicationIsRunning(appName)
-    tell application "System Events" to set appNameIsRunning to exists (processes where name is appName)
-    return appNameIsRunning
-end ApplicationIsRunning
-
-on run argv
-    if not ApplicationIsRunning("Skype") then return
-
-    if item 1 of argv is "diminish" then
+if ApplicationIsRunning("Skype") then
+    if flowAction is "diminish" then
         tell application "Skype"
             send command "SET USERSTATUS DND" script name "flow"
             send command "SET PROFILE MOOD_TEXT Pomodoro in Progress" script name "flow"
         end tell
-    else if item 1 of argv is "restore" then
+    else if flowAction is "restore" then
         tell application "Skype"
             send command "SET USERSTATUS ONLINE" script name "flow"
             send command "SET PROFILE MOOD_TEXT" script name "flow"
         end tell
     end if
-    return
-end run
+end if

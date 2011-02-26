@@ -1,12 +1,5 @@
-on ApplicationIsRunning(appName)
-    tell application "System Events" to set appNameIsRunning to exists (processes where name is appName)
-    return appNameIsRunning
-end ApplicationIsRunning
-
-on run argv
-    if not ApplicationIsRunning("Mail") then return
-
-    if item 1 of argv is "diminish" then
+if ApplicationIsRunning("Mail") then
+    if flowAction is "diminish" then
         tell application "Mail" to activate
         tell application "System Events" to tell process "Mail"
             set theMenu to menu "Mailbox" of menu bar 1
@@ -14,8 +7,7 @@ on run argv
                 click menu item "Take All Accounts Offline" of theMenu
             end if
         end tell
-    else if item 1 of argv is "restore" then
+    else if flowAction is "restore" then
         tell application "Mail" to check for new mail
     end if
-    return
-end run
+end if
