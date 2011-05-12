@@ -1,0 +1,33 @@
+--Enable/Disable "Use all F1, F2, etc. keys as standard function keys" option in Keyboard & Mouse Preference pane and close System Preferences
+if flowAction is "diminish" then
+
+tell application "System Events"
+    tell application "System Preferences"
+        reveal anchor "keyboardTab" of pane "com.apple.preference.keyboard"
+    end tell
+    tell application process "System Preferences"
+        if value of checkbox 1 of tab group 1 of window 1 is 0 then
+            click checkbox 1 of tab group 1 of window 1
+        end if
+    end tell
+end tell
+
+else if flowAction is "restore" then
+
+tell application "System Events"
+    tell application "System Preferences"
+        reveal anchor "keyboardTab" of pane "com.apple.preference.keyboard"
+    end tell
+    tell application process "System Preferences"
+        if value of checkbox 1 of tab group 1 of window 1 is 1 then
+            click checkbox 1 of tab group 1 of window 0
+        end if
+    end tell
+end tell
+
+end if
+
+
+if application "System Preferences" is running then
+    tell application "System Preferences" to quit
+end if
