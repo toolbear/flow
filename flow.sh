@@ -34,12 +34,14 @@ flow() {
             ;;
 
         manage)
-            if [[ ! -d  "$MANAGED" ]] ; then
-                mkdir -p "$MANAGED"
-            fi
+            mkdir -p "$MANAGED"
             local APP="$2"
-            ln -shf "$SCRIPTDIR"/*_"$APP" "$MANAGED"
-            flow force-compile
+            if [[ "$(find $SCRIPTDIR -type f -regex .*/[0-9][0-9][0-9]_$APP -exec ln -v {} $MANAGED ';')" ]] ; then
+                flow force-compile
+            else
+                printf "Error: \`$APP\` isn't managed by flow\n" >/dev/stderr
+                return 1
+            fi
             ;;
 
         unmanage)
