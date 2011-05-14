@@ -9,8 +9,9 @@ flow() {
     local TARGET="$FLOW_DIR/target"
     local SCRIPTDIR="$FLOW_DIR/flow.d"
     local MANAGED="$FLOW_DIR/managed"
-    
-    case $1 in
+
+    local CMD=$1; shift
+    case $CMD in
         compile)
             [[ -d "$TARGET" ]] && return # FIXME: recompile when scripts modifed
             flow force-compile
@@ -35,7 +36,7 @@ flow() {
 
         manage)
             mkdir -p "$MANAGED"
-            local APP="$2"
+            local APP=$1; shift
             if [[ "$(find $SCRIPTDIR -type f -regex .*/[0-9][0-9][0-9]_$APP -exec ln -v {} $MANAGED ';')" ]] ; then
                 flow force-compile
             else
@@ -47,7 +48,7 @@ flow() {
         unmanage)
             [[ -d "$MANAGED" ]] || return
 
-            local APP="$2"
+            local APP=$1; shift
             if [[ "$(find $MANAGED -type l -regex .*/[0-9][0-9][0-9]_$APP -exec rm -v {} ';')" ]] ; then
                 flow force-compile
             fi
