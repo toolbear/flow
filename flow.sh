@@ -57,7 +57,7 @@ flow() {
         ls)
             mkdir -p "$MANAGED"
             $(find $SCRIPTDIR -type f -execdir touch -a $MANAGED/{} ';')
-            \ls -xG $MANAGED
+            env CLICOLOR_FORCE= \ls -G $MANAGED |sed -e 's/[0-9][0-9][0-9]_//' |sort -u
             ;;
 
         install)
