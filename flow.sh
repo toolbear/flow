@@ -89,12 +89,14 @@ flow() {
                 usage: flow COMMAND ...
                    
                 Commands:
-                  enter          Enter a state of flow by reducing distractions
-                  leave          Leave a state of flow, restore communications, notifications, etc.
-                  manage APP     Add APP to list of distracting apps; diminish it when entering flow
-                  unmanage APP   Remove APP from list of distracting apps
+                  enter             Enter a state of flow by reducing distractions
+                  leave             Leave a state of flow, restore communications, notifications, etc.
 
-                  install        Install `Enter Flow.app` and `Leave Flow.app` to $HOME/Applications
+                  ls                List apps which can be managed by flow, highlighting those which are
+                  manage APP...     Add APP to list of distracting apps which are diminished when entering flow
+                  unmanage APP...   Remove APP from list of distracting apps
+
+                  install           Install `Enter Flow.app` and `Leave Flow.app` to $HOME/Applications
 
 EOF
             ;;
