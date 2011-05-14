@@ -36,20 +36,33 @@ flow() {
 
         manage)
             mkdir -p "$MANAGED"
-            local APP=$1; shift
-            if [[ "$(find $SCRIPTDIR -type f -regex .*/[0-9][0-9][0-9]_$APP -exec ln -shfv {} $MANAGED ';')" ]] ; then
+            local DIRTY=
+            while [[ $# -gt 0 ]] ; do
+                local APP=$1; shift
+
+                if [[ "$(find $SCRIPTDIR -type f -regex .*/[0-9][0-9][0-9]_$APP -exec ln -shfv {} $MANAGED ';')" ]] ; then
+                    DIRTY=1
+                else
+                    printf "Error: \`$APP\` isn't managed by flow\n" >/dev/stderr
+                    return 1
+                fi
+            done
+            if [[ $DIRTY ]] ; then
                 flow force-compile
-            else
-                printf "Error: \`$APP\` isn't managed by flow\n" >/dev/stderr
-                return 1
             fi
             ;;
 
         unmanage)
             [[ -d "$MANAGED" ]] || return
 
-            local APP=$1; shift
-            if [[ "$(find $MANAGED -type l -regex .*/[0-9][0-9][0-9]_$APP -exec rm -v {} ';')" ]] ; then
+            local DIRTY=
+            while [[ $# -gt 0 ]] ; do
+                local APP=$1; shift
+                if [[ "$(find $MANAGED -type l -regex .*/[0-9][0-9][0-9]_$APP -exec rm -v {} ';')" ]] ; then
+                    DIRTY=1
+                fi
+            done
+            if [[ $DIRTY ]] ; then
                 flow force-compile
             fi
             ;;
