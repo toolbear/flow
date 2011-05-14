@@ -54,6 +54,12 @@ flow() {
             fi
             ;;
 
+        ls)
+            [[ -d "$MANAGED" ]] || return
+            $(find $SCRIPTDIR -type f -execdir touch -a $MANAGED/{} ';')
+            \ls -xG $MANAGED
+            ;;
+
         install)
             flow compile
             local APPLICATIONS=$HOME/Applications
