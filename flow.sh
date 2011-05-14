@@ -55,7 +55,7 @@ flow() {
             ;;
 
         ls)
-            [[ -d "$MANAGED" ]] || return
+            mkdir -p "$MANAGED"
             $(find $SCRIPTDIR -type f -execdir touch -a $MANAGED/{} ';')
             \ls -xG $MANAGED
             ;;
